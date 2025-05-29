@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery Perjalanan IT</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2c3e50;
+      --accent-color: #e74c3c;
+      --light-bg: #f8f9fa;
+      --dark-text: #333;
+      --light-text: #f8f9fa;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: var(--light-text);
+      padding: 60px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+      background-size: cover;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      position: relative;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-top: 15px;
+      position: relative;
+    }
+
+    .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background-color: var(--primary-color);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 2px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      background: white;
+      position: relative;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover img {
+      opacity: 0.9;
+    }
+
+    .caption {
+      padding: 20px;
+      background: white;
+    }
+
+    .caption h3 {
+      margin: 0 0 10px;
+      color: var(--secondary-color);
+      font-size: 1.3rem;
+    }
+
+    .caption p {
+      margin: 0;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .date {
+      display: inline-block;
+      background: var(--primary-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .tag {
+      background: #e0e0e0;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #555;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-img {
+      width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      background: #f0f0f0;
+    }
+
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 30vh;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    footer {
+      background: var(--secondary-color);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+    }
+
+    .social-links {
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+      
+      .timeline::before {
+        left: 31px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Perjalanan IT-ku</h1>
+    <p class="subtitle">Catatan perjalanan belajar dan pengembangan di dunia teknologi</p>
+  </header>
+
+  <div class="gallery-container">
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" data-filter="web">Web Development</button>
+      <button class="filter-btn" data-filter="mobile">Mobile</button>
+      <button class="filter-btn" data-filter="event">Event</button>
+      <button class="filter-btn" data-filter="achievement">Pencapaian</button>
+    </div>
+
+    <div class="gallery">
+      <div class="gallery-item" data-category="web">
+        <img src="../img/foto1.png" alt="Belajar HTML pertama kali">
+        <div class="caption">
+          <span class="date">Januari 2025</span>
+          <h3>Belajar HTML Pertama Kali</h3>
+          <p>Memulai perjalanan coding dengan mempelajari dasar-dasar HTML dan struktur website.</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Dasar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="web achievement">
+        <img src="../img/foto2.png" alt="Membuat Website Pertama">
+        <div class="caption">
+          <span class="date">Maret 2025</span>
+          <h3>Website Pertama</h3>
+          <p>Berhasil menyelesaikan website portfolio pertama menggunakan HTML, CSS, dan sedikit JavaScript.</p>
+          <div class="tags">
+            <span class="tag">Portfolio</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Responsive</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="event">
+        <img src="../img/foto3.png" alt="JavaScript 2025">
+        <div class="caption">
+          <span class="date">Mei 2025</span>
+          <h3>Belajar JavaScript Pertama kali</h3>
+          <p>Sudah mulai bejalar JavaScript untuk membuat website interactive.</p>
+          <div class="tags">
+            <span class="tag">Tim</span>
+            <span class="tag">React</span>
+            <span class="tag">API</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="mobile">
+        <img src="https://source.unsplash.com/random/600x400/?mobile,app" alt="Aplikasi Mobile Pertama">
+        <div class="caption">
+          <span class="date">November 2023</span>
+          <h3>Aplikasi Mobile Pertama</h3>
+          <p>Mengembangkan aplikasi mobile sederhana menggunakan React Native untuk project kuliah.</p>
+          <div class="tags">
+            <span class="tag">React Native</span>
+            <span class="tag">Mobile</span>
+            <span class="tag">Firebase</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="achievement">
+        <img src="https://source.unsplash.com/random/600x400/?certificate,award" alt="Sertifikasi Web Developer">
+        <div class="caption">
+          <span class="date">Februari 2024</span>
+          <h3>Sertifikasi Web Developer</h3>
+          <p>Mendapatkan sertifikasi profesional sebagai Web Developer setelah menyelesaikan kursus intensif.</p>
+          <div class="tags">
+            <span class="tag">Sertifikasi</span>
+            <span class="tag">MERN Stack</span>
+            <span class="tag">Backend</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="web">
+        <img src="https://source.unsplash.com/random/600x400/?ecommerce,shop" alt="Proyek E-commerce">
+        <div class="caption">
+          <span class="date">Mei 2024</span>
+          <h3>Proyek E-commerce</h3>
+          <p>Membangun website e-commerce lengkap dengan sistem pembayaran dan manajemen produk.</p>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">Stripe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="imageModal">
+    <button class="close-btn" id="closeModal">&times;</button>
+    <div class="modal-content">
+      <img src="" alt="" class="modal-img" id="modalImage">
+      <div class="modal-body">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+        <div class="tags" id="modalTags"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2024 Perjalanan IT-ku. Semua hak dilindungi.</p>
+    <div class="social-links">
+      <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="#" aria-label="Tiktok"><i class="fab fa-tiktok"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Set active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const filterValue = button.getAttribute('data-filter');
+
+        galleryItems.forEach(item => {
+          if (filterValue === 'all' || item.getAttribute('data-category').includes(filterValue)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalTags = document.getElementById('modalTags');
+    const closeModal = document.getElementById('closeModal');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const imgSrc = item.querySelector('img').src;
+        const title = item.querySelector('h3').textContent;
+        const description = item.querySelector('p').textContent;
+        const tags = item.querySelector('.tags').innerHTML;
+        const date = item.querySelector('.date').textContent;
+
+        modalImg.src = imgSrc;
+        modalTitle.textContent = `${date} - ${title}`;
+        modalDescription.textContent = description;
+        modalTags.innerHTML = tags;
+
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('show');
+      document.body.style.overflow = 'auto';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Close modal with ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('show')) {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+</body>
+</html>

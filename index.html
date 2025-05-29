@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elegant Responsive Sidebar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --dark: #1b263b;
+      --light: #f8f9fa;
+      --accent: #4cc9f0;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f7fa;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      color: #333;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(135deg, var(--dark), var(--secondary));
+      color: white;
+      padding: 1.5rem 0;
+      transition: all 0.4s ease;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(76, 201, 240, 0.1) 0%, transparent 70%);
+      animation: rotate 15s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .sidebar-header {
+      padding: 0 1.5rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sidebar-header h2 i {
+      color: var(--accent);
+    }
+
+    .sidebar-menu {
+      padding: 0 1rem;
+    }
+
+    .sidebar button {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.8rem 1.2rem;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.8);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .sidebar button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: 0.5s;
+    }
+
+    .sidebar button:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .sidebar button:hover::before {
+      left: 100%;
+    }
+
+    .sidebar button.active {
+      background: linear-gradient(90deg, rgba(67, 97, 238, 0.3), transparent);
+      color: white;
+      border-left: 3px solid var(--accent);
+    }
+
+    .sidebar button i {
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+      background-color: white;
+      border-radius: 20px 0 0 0;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 20px;
+      z-index: 1100;
+      background: none;
+      color: black;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 21%;
+      cursor: pointer;
+      display: none;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease, left 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 240px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .toggle-btn {
+        display: block;
+      }
+
+      .content {
+        margin-left: 0;
+        border-radius: 0;
+      }
+
+      body {
+        flex-direction: column;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sidebar button:nth-child(1) { animation-delay: 0.1s; }
+    .sidebar button:nth-child(2) { animation-delay: 0.2s; }
+    .sidebar button:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <button id="sidebarToggle" class="toggle-btn" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2><i class="fas fa-compass"></i> Navigasi</h2>
+    </div>
+    <div class="sidebar-menu">
+      <button onclick="loadPage('page/homepage.html', this)" class="active">
+        <i class="fas fa-home"></i> Beranda
+      </button>
+      <button onclick="loadPage('page/gallery.html', this)">
+        <i class="fas fa-chart-line"></i> Analitik
+      </button>
+      <button onclick="loadPage('page/contact.html', this)">
+        <i class="fas fa-cog"></i> contact
+      </button>
+      <a href="https://www.smkn1sambi.my.id/" target="_blank"><button onclick="loadPage('#', this)">
+        <i class="fas fa-cog"></i> School
+      </button></a>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <div class="content">
+    <iframe id="mainFrame" src="page/homepage.html"></iframe>
+  </div>
+
+  <script>
+    function loadPage(page, btn) {
+      const iframe = document.getElementById('mainFrame');
+      iframe.style.opacity = '0';
+      setTimeout(() => {
+        iframe.src = page;
+        iframe.style.opacity = '1';
+        const buttons = document.querySelectorAll('.sidebar button');
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        closeSidebar();
+      }, 200);
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const btn = document.getElementById('sidebarToggle');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      const isActive = sidebar.classList.contains('active');
+      btn.innerHTML = isActive ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      if (window.innerWidth <= 768) {
+        btn.style.left = isActive ? '260px' : '20px';
+      }
+    }
+
+    function closeSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const btn = document.getElementById('sidebarToggle');
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      btn.innerHTML = '<i class="fas fa-bars"></i>';
+      if (window.innerWidth <= 768) {
+        btn.style.left = '20px';
+      }
+    }
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) {
+        closeSidebar();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const iframe = document.getElementById('mainFrame');
+      setTimeout(() => {
+        iframe.style.transition = 'opacity 0.3s ease';
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

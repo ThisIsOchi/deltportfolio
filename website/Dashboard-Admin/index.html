@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Admin | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Admin</h2>
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+      <nav>
+        <a href="#" class="nav-link active" data-section="dashboard">
+          <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="#" class="nav-link" data-section="data">
+          <i class="fas fa-database"></i> Data
+        </a>
+        <a href="#" class="nav-link" data-section="laporan">
+          <i class="fas fa-file-alt"></i> Laporan
+        </a>
+        <a href="#" class="nav-link" data-section="pengaturan">
+          <i class="fas fa-cog"></i> Pengaturan
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">A</div>
+          <span>Administrator</span>
+        </div>
+        <button id="logoutBtn" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </aside>
+
+    <div id="overlay"></div>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button id="toggleBtn" class="toggle-btn" aria-label="Toggle sidebar">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <div class="header-content">
+          <h1>Dashboard Manajemen</h1>
+          <p>Selamat datang di sistem manajemen perusahaan</p>
+        </div>
+        <div class="notifications">
+          <button id="notifBtn" class="notif-btn" aria-label="Notifications">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span>
+          </button>
+          <div class="notif-dropdown">
+            <div class="notif-header">
+              <h3>Notifikasi</h3>
+              <button class="mark-read">Tandai sudah dibaca</button>
+            </div>
+            <div class="notif-list">
+              <div class="notif-item unread">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                  <p>Laporan baru diterima</p>
+                  <small>2 menit lalu</small>
+                </div>
+              </div>
+              <div class="notif-item">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                  <p>Sistem backup berhasil</p>
+                  <small>1 jam lalu</small>
+                </div>
+              </div>
+              <div class="notif-item unread">
+                <i class="fas fa-user-plus"></i>
+                <div>
+                  <p>Pengguna baru terdaftar</p>
+                  <small>3 jam lalu</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div id="notification-toast"></div>
+
+      <section id="dashboard" class="content-section active">
+        <section class="cards">
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <div>
+              <h3>Total Data</h3>
+              <p>1,245</p>
+              <small>+12% dari bulan lalu</small>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div>
+              <h3>Pengguna Aktif</h3>
+              <p>312</p>
+              <small>+5 pengguna baru</small>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div>
+              <h3>Laporan Masuk</h3>
+              <p>76</p>
+              <small>3 belum diproses</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="chart-section">
+          <div class="chart-header">
+            <h2>Statistik Bulanan</h2>
+            <div class="chart-controls">
+              <button class="chart-btn active" data-period="month">Bulanan</button>
+              <button class="chart-btn" data-period="quarter">Triwulan</button>
+              <button class="chart-btn" data-period="year">Tahunan</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="myChart"></canvas>
+          </div>
+        </section>
+      </section>
+
+      <section id="data" class="content-section">
+        <div class="section-header">
+          <h2>Data Pengguna</h2>
+          <div class="data-actions">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" placeholder="Cari pengguna...">
+            </div>
+            <button class="add-btn">
+              <i class="fas fa-plus"></i> Tambah
+            </button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Nama <i class="fas fa-sort"></i></th>
+                <th>Posisi <i class="fas fa-sort"></i></th>
+                <th>Status <i class="fas fa-sort"></i></th>
+                <th>Tanggal <i class="fas fa-sort"></i></th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <div class="avatar">A</div>
+                    <span>Andi</span>
+                  </div>
+                </td>
+                <td>Manager</td>
+                <td><span class="status-badge active">Aktif</span></td>
+                <td>2025-05-20</td>
+                <td>
+                  <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <div class="avatar">B</div>
+                    <span>Budi</span>
+                  </div>
+                </td>
+                <td>Staff</td>
+                <td><span class="status-badge inactive">Nonaktif</span></td>
+                <td>2025-03-12</td>
+                <td>
+                  <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <div class="avatar">C</div>
+                    <span>Citra</span>
+                  </div>
+                </td>
+                <td>Admin</td>
+                <td><span class="status-badge active">Aktif</span></td>
+                <td>2025-01-05</td>
+                <td>
+                  <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="table-footer">
+            <div class="table-info">
+              Menampilkan 1-3 dari 3 entri
+            </div>
+            <div class="pagination">
+              <button disabled><i class="fas fa-chevron-left"></i></button>
+              <button class="active">1</button>
+              <button><i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="laporan" class="content-section">
+        <div class="section-header">
+          <h2>Laporan Sistem</h2>
+          <button class="export-btn">
+            <i class="fas fa-file-export"></i> Export
+          </button>
+        </div>
+        <div class="laporan-container">
+          <div class="laporan-grid">
+            <div class="laporan-card">
+              <h3><i class="fas fa-sign-in-alt"></i> Login Hari Ini</h3>
+              <p>58 pengguna</p>
+              <small>+8 dari kemarin</small>
+            </div>
+            <div class="laporan-card">
+              <h3><i class="fas fa-exchange-alt"></i> Transaksi</h3>
+              <p>132 transaksi</p>
+              <small>Rp 12.450.000</small>
+            </div>
+            <div class="laporan-card">
+              <h3><i class="fas fa-exclamation-triangle"></i> Kesalahan</h3>
+              <p>2 insiden</p>
+              <small>0 kritis</small>
+            </div>
+            <div class="laporan-card">
+              <h3><i class="fas fa-flag"></i> Laporan</h3>
+              <p>7 laporan</p>
+              <small>3 belum diproses</small>
+            </div>
+          </div>
+          
+          <div class="laporan-detail">
+            <h3>Ringkasan Aktivitas</h3>
+            <p>Gunakan data ini untuk meninjau performa sistem dan melakukan perbaikan berkala.</p>
+            
+            <div class="detail-item">
+              <h4>Puncak Aktivitas</h4>
+              <p>10:00 - 12:00 WIB (78 aktivitas)</p>
+            </div>
+            
+            <div class="detail-item">
+              <h4>Device Usage</h4>
+              <div class="usage-stats">
+                <div>
+                  <i class="fas fa-desktop"></i>
+                  <span>62% Desktop</span>
+                </div>
+                <div>
+                  <i class="fas fa-mobile-alt"></i>
+                  <span>38% Mobile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pengaturan" class="content-section">
+        <h2>Pengaturan Sistem</h2>
+        <div class="pengaturan-container">
+          <form id="settingsForm">
+            <div class="form-group">
+              <label for="namaAdmin">Nama Admin</label>
+              <input type="text" id="namaAdmin" value="Administrator" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="emailAdmin">Email Admin</label>
+              <input type="email" id="emailAdmin" value="admin@example.com" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="bahasa">Bahasa</label>
+              <select id="bahasa" required>
+                <option value="id">Indonesia</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="theme">Tema</label>
+              <select id="theme">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="system">Sesuai Sistem</option>
+              </select>
+            </div>
+            
+            <div class="form-group checkbox-group">
+              <label>
+                <input type="checkbox" id="notifikasi" checked /> 
+                <span>Notifikasi Email</span>
+              </label>
+              <small>Aktifkan untuk menerima pemberitahuan via email</small>
+            </div>
+            
+            <div class="form-group checkbox-group">
+              <label>
+                <input type="checkbox" id="twoFactor" /> 
+                <span>Two-Factor Authentication</span>
+              </label>
+              <small>Tingkatkan keamanan akun Anda</small>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="cancel-btn">Batal</button>
+              <button type="submit" class="save-btn">Simpan Perubahan</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

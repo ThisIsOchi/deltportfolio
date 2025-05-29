@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#1E40AF'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom CSS for the entire page */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #ffffff;
+      color: #1f2937;
+    }
+    
+    /* Background animation */
+    .bg-circle {
+      position: fixed;
+      border-radius: 50%;
+      z-index: -1;
+      filter: blur(60px);
+      opacity: 0.4;
+    }
+    
+    .circle-1 {
+      width: 300px;
+      height: 300px;
+      background-color: #bfdbfe;
+      top: 20%;
+      left: 10%;
+      animation: float 15s ease-in-out infinite;
+    }
+    
+    .circle-2 {
+      width: 200px;
+      height: 200px;
+      background-color: #93c5fd;
+      top: 60%;
+      right: 15%;
+      animation: float 12s ease-in-out infinite reverse;
+    }
+    
+    .circle-3 {
+      width: 150px;
+      height: 150px;
+      background-color: #bfdbfe;
+      bottom: 10%;
+      left: 20%;
+      animation: float 18s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, 30px); }
+    }
+    
+    /* Contact card animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .contact-card {
+      animation: fadeIn 0.8s ease-out forwards;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Social media styles */
+    .social-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .social-item {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0f7ff;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    
+    .social-item:hover {
+      background-color: #dbeafe;
+      transform: translateY(-3px);
+    }
+    
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      fill: #3b82f6;
+      transition: all 0.3s ease;
+    }
+    
+    .social-item:hover .social-icon {
+      fill: #1e40af;
+    }
+    
+    .social-tooltip {
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1f2937;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    .social-tooltip::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      background-color: #1f2937;
+      transform: rotate(45deg);
+    }
+    
+    .social-item:hover .social-tooltip {
+      opacity: 1;
+    }
+    
+    /* Contact info item styles */
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 12px;
+      border-radius: 12px;
+      transition: background-color 0.2s ease;
+    }
+    
+    .contact-item:hover {
+      background-color: #f0f7ff;
+    }
+    
+    .contact-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: #dbeafe;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    
+    .contact-icon svg {
+      width: 20px;
+      height: 20px;
+      color: #3b82f6;
+    }
+    
+    .contact-text {
+      color: #374151;
+    }
+    
+    .contact-text a {
+      color: #3b82f6;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .contact-text a:hover {
+      color: #1e40af;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+
+  <!-- Floating Circles Background -->
+  <div class="bg-circle circle-1"></div>
+  <div class="bg-circle circle-2"></div>
+  <div class="bg-circle circle-3"></div>
+
+  <!-- Main Content -->
+  <div class="max-w-2xl mx-auto px-4 py-12">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-800 mb-3">Get In Touch</h1>
+      <p class="text-gray-600 max-w-md mx-auto">Let's connect! Reach out through any platform below.</p>
+    </header>
+
+    <!-- Contact Card -->
+    <section class="contact-card bg-white p-8 rounded-2xl border border-gray-100">
+      <!-- Profile Info -->
+      <div class="space-y-3 mb-8">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="contact-text">Your Name</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+            </svg>
+          </div>
+          <div class="contact-text">
+            <a href="mailto:your@email.com">your@email.com</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="contact-text">Your City, Country</div>
+        </div>
+      </div>
+
+      <!-- Social Media -->
+      <div>
+        <h2 class="text-lg font-semibold text-gray-800 mb-4 text-center">Connect with me</h2>
+        <div class="social-container">
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" class="social-item">
+            <svg class="social-icon" viewBox="0 0 24 24">
+              <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.25 8h4.5V24H.25V8zM7.75 8H12v2.16h.06c.59-1.12 2.04-2.3 4.2-2.3 4.49 0 5.32 2.95 5.32 6.78V24h-4.5v-7.56c0-1.8-.03-4.12-2.51-4.12-2.51 0-2.89 1.96-2.89 3.99V24h-4.5V8z"/>
+            </svg>
+            <span class="social-tooltip">LinkedIn</span>
+          </a>
+          <a href="https://github.com/yourusername" target="_blank" class="social-item">
+            <svg class="social-icon" viewBox="0 0 24 24">
+              <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008 10.95c.6.1.8-.25.8-.55v-2c-3.25.7-3.9-1.5-3.9-1.5a3.1 3.1 0 00-1.3-1.75c-1.05-.7.1-.7.1-.7a2.5 2.5 0 011.85 1.25 2.6 2.6 0 003.55 1 2.6 2.6 0 01.75-1.65c-2.6-.3-5.35-1.3-5.35-5.9a4.6 4.6 0 011.25-3.2 4.2 4.2 0 01.1-3.15s1-.3 3.3 1.25a11.4 11.4 0 016 0c2.3-1.55 3.3-1.25 3.3-1.25a4.2 4.2 0 01.1 3.15 4.6 4.6 0 011.25 3.2c0 4.6-2.75 5.6-5.35 5.9a2.9 2.9 0 01.8 2.25v3.3c0 .3.2.65.8.55A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/>
+            </svg>
+            <span class="social-tooltip">GitHub</span>
+          </a>
+          <a href="https://instagram.com/yourusername" target="_blank" class="social-item">
+            <svg class="social-icon" viewBox="0 0 24 24">
+              <path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.5.6.3 1.1.7 1.5 1.2.5.4.9.9 1.2 1.5.2.4 1 .4 2.2.5 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.5 2.2a4.4 4.4 0 01-1.2 1.5c-.4.5-.9.9-1.5 1.2-.4.2-1 .4-2.2.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.5a4.4 4.4 0 01-1.5-1.2 4.4 4.4 0 01-1.2-1.5c-.2-.4-.4-1-.5-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.5-2.2.3-.6.7-1.1 1.2-1.5.4-.5.9-.9 1.5-1.2.4-.2 1-.4 2.2-.5C8.4 2.2 8.8 2.2 12 2.2z"/>
+            </svg>
+            <span class="social-tooltip">Instagram</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center mt-16 text-sm text-gray-500">
+      &copy; 2025 Your Name. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>

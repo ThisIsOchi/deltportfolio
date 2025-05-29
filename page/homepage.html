@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio profesional [Nama Kamu] - [Profesi Kamu]">
+  <title>Portfolio | [Nama Kamu]</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c7a7b;
+      --primary-dark: #225e61;
+      --text-color: #333;
+      --light-bg: #f4f4f4;
+      --white: #ffffff;
+      --gray-light: #edf2f7;
+      --shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 30px;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+    }
+
+    h1, h2, h3 {
+      color: var(--text-color);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero h1 span {
+      color: var(--primary-color);
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: var(--primary-color);
+      color: var(--white);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+    }
+
+    .projects .project-card {
+      background: var(--gray-light);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .projects .project-card:hover {
+      transform: translateX(5px);
+    }
+
+    .projects .project-card h3 {
+      color: var(--primary-dark);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      color: #666;
+      padding: 20px;
+    }
+
+    .social-links {
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: inline-block;
+      margin: 0 10px;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+      color: var(--primary-dark);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(44, 122, 123, 0.2);
+    }
+
+    button {
+      padding: 12px 24px;
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .skill-tag {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        margin: 30px auto;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Halo, Saya <span>Girindra Wardhana</span></h1>
+    <p>Seorang <strong>Siswa Jurusan TKJ</strong> yang berfokus pada Teknik Komputer dan jaringan.</p>
+    <a href="#projects" class="btn-primary">Lihat Proyek Saya</a>
+  </section>
+
+  <!-- Tentang Saya -->
+  <section class="about">
+    <h2>Tentang Saya</h2>
+    <p>Seorang pelajar yang mendalami bidang jaringan untuk membuat sebuah jaringan internet, namun juga mendalami pada bidang frontend dengan desain yang begitu sederhana.</p>
+    <p>Dengan pengalaman di bidang <strong>[HTML, CSS, JavaScript,]</strong>, saya terus mengembangkan diri dan siap untuk tantangan baru.</p>
+    
+    <div class="skills">
+      <span class="skill-tag">HTML</span>
+      <span class="skill-tag">CSS</span>
+      <span class="skill-tag">JavaScript</span>
+      <span class="skill-tag">Responsive Design</span>
+    </div>
+  </section>
+
+  <!-- Proyek -->
+  <section class="projects" id="projects">
+    <h2>Proyek Pilihan</h2>
+    <div class="project-card">
+      <h3>Landing Page Produk</h3>
+      <p>Website promosi dengan desain modern dan animasi halus untuk menarik perhatian pengguna.</p>
+      <a href="../website/Landing-page/index.html" class="btn-primary" style="margin-top: 10px; display: inline-block;">Lihat Proyek</a>
+    </div>
+    <div class="project-card">
+      <h3>Dashboard Admin</h3>
+      <p>Aplikasi berbasis web untuk manajemen data, dilengkapi statistik dan UI interaktif.</p>
+      <a href="../website/Dashboard-Admin/index.html" target="_blank" class="btn-primary" style="margin-top: 10px; display: inline-block;">Lihat Proyek</a>
+    </div>
+  </section>
+
+  <!-- Kontak -->
+  <section class="contact">
+    <h2>Hubungi Saya</h2>
+    <p>Silakan isi formulir di bawah untuk menghubungi saya langsung melalui email.</p>
+    <form action="mailto:emailkamu@example.com" method="POST" enctype="text/plain">
+      <input type="text" name="name" placeholder="Nama Anda" required />
+      <input type="email" name="email" placeholder="Email Anda" required />
+      <textarea name="message" placeholder="Pesan Anda" rows="5" required></textarea>
+      <button type="submit">Kirim Pesan</button>
+    </form>
+    
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/girindra-wardhana-932566367 " aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/ThisIsOchi" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#" aria-label="Tiktok"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Girindra Wardhana. Dibuat dengan ❤ dan semangat belajar.</p>
+  </footer>
+
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Form submission handler
+    const contactForm = document.querySelector('.contact form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        // You can add form validation here
+        alert('Terima kasih! Pesan Anda telah dikirim.');
+      });
+    }
+  </script>
+</body>
+</html>
